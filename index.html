@@ -693,7 +693,7 @@ const FAQ_DEFAULT=[
 ];
 const faqData=()=>Array.isArray(D.faq)&&D.faq.length?D.faq:FAQ_DEFAULT;
 const EXPERT_PHOTOS={ferreira:"images/expert-ferreira.jpg",panchin:"images/expert-panchin.jpg",izmailov:"images/expert-izmailov.jpg",sadykova:"images/expert-sadykova.jpg"};
-function photoOf(e){ return (e&&(e.photo||EXPERT_PHOTOS[e.id]))||""; }
+function photoOf(e){ if(!e) return ""; if(e.photo) return e.photo; if(EXPERT_PHOTOS[e.id]) return EXPERT_PHOTOS[e.id]; const n=String(e.name||"").toLowerCase(); const k=Object.keys(EXPERT_PHOTOS).find(k=>n.includes(k)); return k?EXPERT_PHOTOS[k]:""; }
 function avatarBox(e){ const ph=photoOf(e); return ph?`<div class="avatar has-img" aria-hidden="true"><img src="${esc(ph)}" alt=""></div>`:`<div class="avatar" aria-hidden="true">${esc(initials(e?e.name:""))}</div>`; }
 const EMAIL_TYPOS={"gmai.com":"gmail.com","gmial.com":"gmail.com","gamil.com":"gmail.com","gmal.com":"gmail.com","gmil.com":"gmail.com","gnail.com":"gmail.com","gmaill.com":"gmail.com","gmail.co":"gmail.com","gmail.con":"gmail.com","gmail.cm":"gmail.com","gmail.om":"gmail.com","gmail.ru":"gmail.com","hotmial.com":"hotmail.com","hotmal.com":"hotmail.com","outlok.com":"outlook.com","yandex.r":"yandex.ru","yandex.ry":"yandex.ru","mail.r":"mail.ru","mail.ry":"mail.ru","inbox.r":"inbox.ru","bk.r":"bk.ru","list.r":"list.ru"};
 function junkText(t){ const l=String(t||"").replace(/[^\p{L}]/gu,""); return l.length<6 || new Set(l.toLowerCase()).size<4; }
